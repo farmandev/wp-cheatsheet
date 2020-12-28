@@ -33,6 +33,10 @@
     //     e.preventDefault();
     //     $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top - 90 }, 500, 'linear');
     // });
+    $('#tablist a').on('click', function(e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
 
     $('.wp-list-item li.dropdown > a').on('click', function() {
         $(this).removeAttr('href');

@@ -46,44 +46,78 @@
     <!-- Preloader End -->
     <div class="page_wrapper">
         <div class="home_wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="header-wrap">
-                            <h1>WordPress Cheatsheet</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="sidebar">
-                            <ul class="nav nav-tabs wp-list-item">
-                                <li class="nav-item active dropdown">
-                                    <a data-toggle="tab" href="#">Customizer</a>
-                                    <ul class="nav nav-tabs wp-list-dropdown">
-                                        <li class="nav-item active">
-                                            <a data-toggle="tab" href="#">All Property</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a data-toggle="tab" href="#tab_2">For Sale</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a data-toggle="tab" href="#tab_3">For Rent</a>
-                                        </li>
-                                    </ul>
+            <div class="header-wrap">
+                <h1>WordPress Cheatsheet</h1>
+            </div>
+            <div class="content-wrap">
+                <div class="sidebar">
+                    <ul class="nav nav-tabs wp-list-item" id="tablist">
+                        <li class="nav-item active dropdown">
+                            <a data-toggle="tab" href="#cust_tab_1">Customizer</a>
+                            <ul class="nav nav-tabs wp-list-dropdown">
+                                <li class="nav-item active">
+                                    <a data-toggle="tab" href="#cust_tab_1">Add Section</a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a data-toggle="tab" href="#tab_2">For Sale</a>
+                                    <a data-toggle="tab" href="#cust_tab_2">Selective Refreshment & partials</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a data-toggle="tab" href="#tab_3">For Rent</a>
+                                    <a data-toggle="tab" href="#cust_tab_4">Image/File/Media Upload</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#cust_tab_5">Section Refresh with js</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#cust_tab_6">Codestar integrate</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a data-toggle="tab" href="#tab_2">For Sale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="tab" href="#tab_3">For Rent</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content wp-list-content">
+                    <div class="tab-pane fade show active" id="cust_tab_1">
+                        <div class="tab-content-wrapper">
+                            <h4>Add section</h4>
+                            <p></p>
+                            <div class="code-wrap">
+                                <code>
+                                   
+                                </code>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-9">
-                        <div class="tab-content wp-list-content">
-                            <div class="tab-pane fade show active" id="tab_1">
+                    <div class="tab-pane fade" id="cust_tab_2">
+                        <div class="tab-content-wrapper">
+                            <h4>Integrate Kirki to Wordpress theme Two</h4>
+                            <p>Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Reiciendis quasi voluptatem eius culpa harum eveniet, amet accusamus nemo consectetur minus consequuntur commodi deleniti, doloribus possimus vitae, ut, modi assumenda delectus?</p>
+                            <div class="code-wrap">
+                                <pre>
+Kirki::add_config( 'prac_kirki_customizer', array( 
+    'capability' => 'edit_theme_options', 
+    'option_type' => 'theme_mod',
+) );
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="cust_tab_3">
+                        <div class="tab-content-wrapper">
+                            <h4>Integrate Kirki to Wordpress theme</h4>
+                            <p>Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Reiciendis quasi voluptatem eius culpa harum eveniet, amet accusamus nemo consectetur minus consequuntur commodi deleniti, doloribus possimus vitae, ut, modi assumenda delectus?</p>
+                            <div class="code-wrap">
+                                <code>
+                                    &lt;?php <br>
+                                    Kirki::add_config( 'prac_kirki_customizer', array( <br>
+                                    'capability' => 'edit_theme_options', <br>
+                                    'option_type' => 'theme_mod', <br>
+                                    ) );
+                                </code>
                             </div>
                         </div>
                     </div>
