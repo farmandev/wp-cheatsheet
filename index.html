@@ -56,7 +56,7 @@
                             <a data-toggle="tab" href="#cust_tab_1">Customizer</a>
                             <ul class="nav nav-tabs wp-list-dropdown">
                                 <li class="nav-item active">
-                                    <a data-toggle="tab" href="#cust_tab_1">Add Section</a>
+                                    <a data-toggle="tab" href="#cust_tab_1">Add Section/settings/control</a>
                                 </li>
                                 <li class="nav-item ">
                                     <a data-toggle="tab" href="#cust_tab_2">Selective Refreshment & partials</a>
@@ -68,12 +68,21 @@
                                     <a data-toggle="tab" href="#cust_tab_5">Section Refresh with js</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a data-toggle="tab" href="#cust_tab_6">Codestar integrate</a>
+                                    <a data-toggle="tab" href="#cust_tab_6">Codestar with customizer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a data-toggle="tab" href="#cust_tab_7">Kirki integrate</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ">
-                            <a data-toggle="tab" href="#tab_2">For Sale</a>
+                        <li class="nav-item dropdown">
+                            <a data-toggle="tab" href="#tab_2">Custom Post</a>
+                            <ul class="nav nav-tabs wp-list-dropdown">
+                                <li class="nav-item active">
+                                    <a data-toggle="tab" href="#cpt_tab_1">Add Section/settings/control</a>
+                                </li>
+                               
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a data-toggle="tab" href="#tab_3">For Rent</a>
@@ -83,43 +92,113 @@
                 <div class="tab-content wp-list-content">
                     <div class="tab-pane fade show active" id="cust_tab_1">
                         <div class="tab-content-wrapper">
-                            <h4>Add section</h4>
-                            <p></p>
+                            <h4>Add New section</h4>
                             <div class="code-wrap">
-                                <code>
-                                   
-                                </code>
+                                <pre>
+function cust_customizer_settings( $wp_customizer ) {
+    $wp_customizer->add_section( 'cust_services', array(
+      'title'           => __( 'Services', 'customizer' ),
+      'priority'        => '30'
+    ));
+}
+
+add_action( 'customize_register', 'cust_customizer_settings' );
+<div class="note">
+<h6>Code Ref: <a href="https://codex.wordpress.org/Theme_Customization_API#Adding_a_New_Setting" target="_blank">Codex</a></h6>
+</div>
+</pre>
+                            </div>
+                            <h4>Add New Settings</h4>
+                            <div class="code-wrap">
+                                <pre>
+function cust_customizer_settings( $wp_customizer ) {
+    $wp_customizer->add_setting('cust_services_heading',array(
+      'default'=>"Mission Statement",
+      'transport'=>'refresh',
+      'type'=>'option'
+    ));
+}
+
+add_action( 'customize_register', 'cust_customizer_settings' );
+<div class="note">
+<h6>Code Ref: <a href="https://codex.wordpress.org/Theme_Customization_API#Adding_a_New_Setting" target="_blank">Codex</a></h6>
+<h6>Note:</h6>
+<p>'transport'=><span>'refresh'</span>,  //How you want to reload changes.'refresh' for full page reload & 'postMessage' for only related section reload</p>
+<p>'type'=><span>'option'</span>  //where you want to save setting data. Default is 'theme_mod'</p>
+</div>
+</pre>
+                            </div>
+                            <h4>Add New Control</h4>
+                            <div class="code-wrap">
+                                <pre>
+function cust_customizer_settings( $wp_customizer ) {
+   $wp_customizer->add_control('prac_service_title_display',array(
+        'label'=>__('Display Service Section Title','practice'),
+        'section'=>'prac_services',
+        'settings'=>'prac_service_title_display',
+        'type'=>'checkbox'
+    ));
+}
+add_action( 'customize_register', 'cust_customizer_settings' );
+<div class="note">
+<h6>Code Ref: <a href="https://codex.wordpress.org/Theme_Customization_API#Adding_a_New_Setting" target="_blank">Codex</a></h6>
+<!-- <h6>Note:</h6>
+<p>'transport'=><span>'refresh'</span>,  //How you want to reload changes.'refresh' for full page reload & 'postMessage' for only related section reload</p>
+<p>'type'=><span>'option'</span>  //where you want to save setting data. Default is 'theme_mod'</p> -->
+</div>
+</pre>
+                            </div>
+                            <h4>Display data in Frontend </h4>
+                            <p>Use this code to show data in frontend </p>
+                            <div class="code-wrap">
+                                <pre>
+&lt;?php 
+    echo esc_html(get_theme_mod('prac_service_title',__('Our Services','textdomain') ) );
+?&gt;
+<div class="note">
+<h6>Code Ref: <a href="https://developer.wordpress.org/reference/functions/get_theme_mod/" target="_blank">get_theme_mod</a></h6>
+<h6>Note:</h6>
+<p>esc_html(get_theme_mod(<span>'prac_service_title'</span>,  // put setting ID here</p>
+</div>
+</pre>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="cust_tab_2">
                         <div class="tab-content-wrapper">
-                            <h4>Integrate Kirki to Wordpress theme Two</h4>
-                            <p>Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Reiciendis quasi voluptatem eius culpa harum eveniet, amet accusamus nemo consectetur minus consequuntur commodi deleniti, doloribus possimus vitae, ut, modi assumenda delectus?</p>
+                            <h4>Selective Refreshment & partials</h4>
+                            <p><span>Step 1:</span>Add the following code where you are writing code for customizer (i.e customizer.php)</p>
                             <div class="code-wrap">
                                 <pre>
-Kirki::add_config( 'prac_kirki_customizer', array( 
-    'capability' => 'edit_theme_options', 
-    'option_type' => 'theme_mod',
-) );
+
+function prefix_customizer_register($wp_customizer){
+    $wp_customizer->selective_refresh->add_partial('prac_services',array(
+        'selector'=>'.section-heading ',    
+        'settings'=>'prac_service_title',
+        'render_callback'=>function(){
+            return get_theme_mod('prac_service_title');
+        }
+    ));
+}
+
+add_action('customize_register','prefix_customizer_register');
+
+<div class="note">
+<h6>Note:</h6>
+<p>$wp_customizer->selective_refresh->add_partial(<span>'prac_services'</span>,array(    // Unique ID for selective refresh</p>
+<p>'selector'=><span>'.section-heading'</span>,     // ID or class name of related HTML element on which you want to apply partials</p>
+<p>'settings'=><span>'prac_service_title'</span>,    // related customizer settings ID on which you want to apply partials,use array for multiple setting ID within same section</p>
+<p>return get_theme_mod(<span>'prac_service_title'</span>);    // related customizer settings ID on which you want to apply partials,use array for multiple setting ID within same section</p>
+</div>
 </pre>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="cust_tab_3">
-                        <div class="tab-content-wrapper">
-                            <h4>Integrate Kirki to Wordpress theme</h4>
-                            <p>Lorem ipsum dolor sit, amet consectetur, adipisicing elit. Reiciendis quasi voluptatem eius culpa harum eveniet, amet accusamus nemo consectetur minus consequuntur commodi deleniti, doloribus possimus vitae, ut, modi assumenda delectus?</p>
-                            <div class="code-wrap">
-                                <code>
-                                    &lt;?php <br>
-                                    Kirki::add_config( 'prac_kirki_customizer', array( <br>
-                                    'capability' => 'edit_theme_options', <br>
-                                    'option_type' => 'theme_mod', <br>
-                                    ) );
-                                </code>
-                            </div>
-                        </div>
+                    <div class="tab-pane fade" id="cpt_tab_1">
+                    </div>
+                    <div class="tab-pane fade" id="">
+                    </div>
+                    <div class="tab-pane fade" id="">
                     </div>
                 </div>
             </div>
